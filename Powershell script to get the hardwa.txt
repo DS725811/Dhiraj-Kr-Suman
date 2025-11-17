@@ -1,0 +1,12 @@
+Powershell script to get the hardwarehash of a machine
+
+Install-script Get-windowsautopilotinfo -force
+
+md c:\hwid
+
+
+set-executionpolicy bypass -force
+
+Get-WindowsAutoPilotInfo.ps1 -Outputfile 'C:\hwid\demohash.csv'
+
+
