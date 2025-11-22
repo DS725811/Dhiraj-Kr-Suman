@@ -1,0 +1,8 @@
+$powerUser = ""
+$powerPass = ''
+$password = ConvertTo-SecureString $powerPass -AsPlainText -Force
+$LiveCred = New-Object -TypeName System.Management.Automation.PSCredential -argumentlist $powerUser,$password
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $LiveCred -Authentication Basic -AllowRedirection
+$import = import-pssession $Session -AllowClobber
+Install-module msonline
+Connect-MsolService -Credential $LiveCred
