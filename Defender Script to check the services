@@ -1,0 +1,11 @@
+How to Onboard a Windows Device into Microsoft Defender for Endpoints
+
+Script to check service
+$Process = Get-Process | select Name | Sort-Object -Property Name
+$services = "MsMpEng","NisSrv","MsSense","SenseCE"
+foreach ($serv in $services)
+{
+    if($Process.Name -contains $serv) { Write-Host $serv "is running." -ForegroundColor Green}
+    else 
+    { Write-Host $serv "is not running" -ForegroundColor Red }
+}
