@@ -1,0 +1,29 @@
+Steps to Remove Expired Trial Licenses Using PowerShell
+Step 1: Install Microsoft Graph PowerShell Module
+Open PowerShell as Administrator and run: Install-Module Microsoft.Graph -Scope CurrentUser
+Step 2: Connect to Microsoft Graph
+Run: Connect-MgGraph -Scopes Organization.ReadWrite.All
+Sign in with your Global Admin credentials.
+Complete the authentication
+
+Step 3: Check All Subscribed SKUs
+Run: Get-MgSubscribedSku | Select SkuId, SkuPartNumber, SubscriptionIds, ConsumedUnits
+ 
+This will list all licenses in your tenant, including expired trials.
+Look for SkuPartNumber containing “Trial” or check the Status.
+Step 4: Identify Expired Trial Subscriptions
+Run: Get-MgSubscription | Select Id, Status, SkuId
+Status will show Disabled or Expired for trials.
+Note down the Subscription Id for expired trials.
+Step 5: Remove Expired Trial Subscriptions
+Run: Remove-MgSubscription -SubscriptionId <SubscriptionId>
+Replace <SubscriptionId> with the actual ID from Step 4.
+Step 6: Verify Removal
+Run: Get-MgSubscription | Select Id, Status
+Ensure expired trials are no longer listed.
+ 
+Important Notes
+You need Global Admin rights to perform these steps.
+Repeat Step 5 for each expired trial subscription.
+Removing expired trials does not affect active licenses.
+ 
